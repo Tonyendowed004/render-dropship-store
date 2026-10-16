@@ -6,7 +6,7 @@
 function getCJAccessToken(): ?string
 {
     // Configure CJ_API_KEY in your server environment.
-    $apiKey = getenv('CJ5942461@api@1c0e45252d5a447bbbc99000d40c94a7');
+    $apiKey = getenv('CJ_API_KEY');
 
     if ($apiKey === false || trim($apiKey) === '') {
         error_log('CJ authentication: CJ_API_KEY is not configured.');
