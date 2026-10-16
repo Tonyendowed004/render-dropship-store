@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ],
                     "products" => [
                         [
-                            "sku" => "CJ_PRODUCT_SKU_HERE", // We will replace this with a real item code next
+                            "sku" => "CJCC224997001AZ", // We will replace this with a real item code next
                             "quantity" => 1
                         ]
                     ]
