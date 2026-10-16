@@ -5,7 +5,7 @@ function getCJAccessToken() {
     $url = "https://cjdropshipping.com";
     
     // ⚠️ PASTE YOUR RECENTLY GENERATED CJ API KEY HERE
-    $apiKey = "CJ5942461@api@cf55561909db4c2faf826f98e8e3a88e"; 
+    $apiKey = "CJ5942461@api@1c0e45252d5a447bbbc99000d40c94a7"; 
 
     $payload = json_encode([
         "apiKey" => $apiKey
