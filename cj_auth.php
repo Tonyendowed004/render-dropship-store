@@ -5,27 +5,31 @@
 
 function getCJAccessToken(): ?string
 {
-    // Set your API key in a server environment variable.
-    $apiKey = 'CJ5942461@api@1c0e45252d5a447bbbc99000d40c94a7';
+    // Configure CJ_API_KEY in your server environment.
+    $apiKey = getenv('CJ5942461@api@1c0e45252d5a447bbbc99000d40c94a7');
 
-    if (!$apiKey) {
-        error_log('CJ_API_KEY environment variable is missing.');
+    if ($apiKey === false || trim($apiKey) === '') {
+        error_log('CJ authentication: CJ_API_KEY is not configured.');
         return null;
     }
 
-    // CJ Dropshipping API authentication endpoint
     $url = 'https://developers.cjdropshipping.com/api2.0/v1/authentication/getAccessToken';
 
     $payload = json_encode([
-        'apiKey' => $apiKey
+        'apiKey' => trim($apiKey)
     ]);
 
     if ($payload === false) {
-        error_log('Could not encode CJ authentication payload.');
+        error_log('CJ authentication: Could not encode request.');
         return null;
     }
 
     $ch = curl_init($url);
+
+    if ($ch === false) {
+        error_log('CJ authentication: Could not initialize cURL.');
+        return null;
+    }
 
     curl_setopt_array($ch, [
         CURLOPT_RETURNTRANSFER => true,
@@ -46,26 +50,30 @@ function getCJAccessToken(): ?string
     curl_close($ch);
 
     if ($response === false) {
-        error_log('CJ API cURL error: ' . $curlError);
+        error_log('CJ authentication cURL error: ' . $curlError);
         return null;
     }
 
     $data = json_decode($response, true);
 
     if (!is_array($data)) {
-        error_log('CJ API returned invalid JSON. HTTP status: ' . $httpCode);
+        error_log('CJ authentication: Invalid JSON response. HTTP ' . $httpCode);
         return null;
     }
 
     if ($httpCode < 200 || $httpCode >= 300) {
-        error_log('CJ API authentication failed. HTTP status: ' . $httpCode);
+        error_log('CJ authentication failed. HTTP ' . $httpCode);
         return null;
     }
 
-    if (!empty($data['data']['accessToken'])) {
+    if (
+        isset($data['data']['accessToken']) &&
+        is_string($data['data']['accessToken']) &&
+        $data['data']['accessToken'] !== ''
+    ) {
         return $data['data']['accessToken'];
     }
 
-    error_log('CJ API response did not contain an access token.');
+    error_log('CJ authentication: Access token missing from response.');
     return null;
 }
