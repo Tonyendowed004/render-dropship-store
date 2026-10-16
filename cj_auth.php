@@ -2,7 +2,7 @@
 // cj_auth.php - Manages the dynamic login session token for CJ Dropshipping
 
 function getCJAccessToken() {
-    $url = "https://cjdropshipping.com";
+    $url = 'https://developers.cjdropshipping.com/api2.0/v1/authentication/getAccessToken';
     
     // ⚠️ PASTE YOUR RECENTLY GENERATED CJ API KEY HERE
     $apiKey = "CJ5942461@api@1c0e45252d5a447bbbc99000d40c94a7"; 
