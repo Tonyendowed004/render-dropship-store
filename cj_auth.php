@@ -6,7 +6,7 @@
 function getCJAccessToken(): ?string
 {
     // Set your API key in a server environment variable.
-    $apiKey = getenv('CJ5942461@api@1c0e45252d5a447bbbc99000d40c94a7');
+    $apiKey = 'CJ5942461@api@1c0e45252d5a447bbbc99000d40c94a7';
 
     if (!$apiKey) {
         error_log('CJ_API_KEY environment variable is missing.');
