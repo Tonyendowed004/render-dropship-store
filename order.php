@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $api_response_text = "Token could not be generated. Check your API Key in cj_auth.php.";
             if ($cj_token) {
                 // Official CJ v2.0 order endpoint
-                $cj_order_url = "https://cjdropshipping.com";
+                $cj_order_url = "https://developers.cjdropshipping.com/api2.0/v1/shopping/order/createOrderV2";
                 
                 // Structured exactly to match the CJ Developer specs
                 $order_payload = json_encode([
